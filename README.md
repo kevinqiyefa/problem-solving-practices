@@ -1,1 +1,1 @@
-# problem-solving-practices
+# problem-solving-practices with Javascript
