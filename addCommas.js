@@ -12,7 +12,7 @@
 
 // addCommas(3.141592); // "3.141592"
 
-// addCommas(54321.99); // "54,321.99"
+addCommas(54321.99); // "54,321.99"
 
 //solution #1
 function addCommas(num) {
