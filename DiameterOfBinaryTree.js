@@ -24,8 +24,6 @@
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
-  if (!root) return 0;
-
   let sum = 0;
 
   function helper(root) {
