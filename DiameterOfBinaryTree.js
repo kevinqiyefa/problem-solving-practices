@@ -24,18 +24,32 @@
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
-  let sum = 0;
+  // let sum = 0;
 
-  function helper(root) {
-    if (!root) return 0;
+  // function helper(root) {
+  //   if (!root) return 0;
 
-    let left = helper(root.left);
-    let right = helper(root.right);
-    sum = Math.max(left + right, sum);
+  //   let left = helper(root.left);
+  //   let right = helper(root.right);
+  //   sum = Math.max(left + right, sum);
 
-    return Math.max(left, right) + 1;
+  //   return Math.max(left, right) + 1;
+  // }
+
+  // helper(root);
+  // return sum;
+
+  let ans = 0;
+
+  function helper(rt) {
+    if (rt === null) return 0;
+    let left = rt.left ? 1 + helper(rt.left) : 0;
+    let right = rt.right ? 1 + helper(rt.right) : 0;
+
+    ans = Math.max(ans, left + right);
+
+    return Math.max(left, right);
   }
-
   helper(root);
-  return sum;
+  return ans;
 };
