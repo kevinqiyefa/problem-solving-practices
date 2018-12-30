@@ -36,25 +36,43 @@
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function(root, p, q) {
-  //      let current = root;
+    
+// Recursive Approach
+        if(root.val > Math.max(p.val, q.val)) return lowestCommonAncestor(root.left, p, q);
+    
+        else if(root.val < Math.min(p.val, q.val)) return lowestCommonAncestor(root.right, p, q);
+    
+        return root;
+  
+//------------------------------------------------------------------------------------------------- 
+//
+// Iterative Approach
+//        // Value of p
+//         let pVal = p.val;
 
-  //    let minVal = Math.min(p.val, q.val);
-  //    let maxVal = Math.max(p.val, q.val);
+//         // Value of q;
+//         let qVal = q.val;
 
-  //     while(true){
 
-  //       if(current.val<minVal) current = current.right;
-  //       else if (current.val>maxVal) current = current.left;
-  //       else return current;
-  //     }
 
-  if (!root || root === p || root === q) return root;
+//         // Traverse the tree
+//         while (root != null) {
 
-  root.left = lowestCommonAncestor(root.left, p, q);
-  root.right = lowestCommonAncestor(root.right, p, q);
+//             // Value of ancestor/parent node.
+//             let parentVal = root.val;
 
-  if (root.left !== null && root.right !== null) return root;
-  else if (root.left !== null) return root.left;
-  else if (root.right !== null) return root.right;
-  else return null;
+//             if (pVal > parentVal && qVal > parentVal) {
+//                 // If both p and q are greater than parent
+//                 root = root.right;
+//             } else if (pVal < parentVal && qVal < parentVal) {
+//                 // If both p and q are lesser than parent
+//                 root = root.left;
+//             } else {
+//                 // We have found the split point, i.e. the LCA node.
+//                 return root;
+//             }
+//         }
+//         return null;
+    
+
 };
