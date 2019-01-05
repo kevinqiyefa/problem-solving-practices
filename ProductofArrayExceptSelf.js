@@ -32,3 +32,25 @@ var productExceptSelf = function(nums) {
 
   return arr;
 };
+
+
+//second attempt:
+// var productExceptSelf = function(nums) {
+//   let arr = [];
+//   let right = 1;
+//   let left = 1;
+
+//   for (let i = 0; i < nums.length; i++) {
+//     arr[i] = left;
+//     left *= nums[i];
+//   }
+
+//   for (let i = nums.length - 1; i >= 0; i--) { 
+//     arr[i] *= right;
+//     right *= nums[i];
+//   }
+
+//   return arr;
+// };
+
+// productExceptSelf([1,2,3,4])
