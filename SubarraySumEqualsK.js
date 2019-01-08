@@ -37,7 +37,7 @@ var subarraySum = function(nums, k) {
 
   nums.forEach(n => {
     sum += n;
-    if (preSum[sum - k]) {
+    if (preSum.hasOwnProperty(sum - k)) {
       result += preSum[sum - k];
     }
     preSum[sum] = preSum[sum] + 1 || 1;
