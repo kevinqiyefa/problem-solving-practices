@@ -44,7 +44,7 @@ var solution = function(read4) {
 
     while (numCharRead < n) {
       while (remainIndex < size && numCharRead < n) {
-        buf[numCharRead++] = remainBuf[remainIndex];
+        buf[numCharRead++] = remainBuf[remainIndex++];
       }
 
       if (remainIndex >= size) {
