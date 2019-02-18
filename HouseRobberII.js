@@ -43,5 +43,5 @@ var rob = function(nums) {
     }
   }
 
-  return Math.max(notRobF, robNotF, notRobNotF);
+  return Math.max(notRobF, robNotF);
 };
