@@ -22,15 +22,30 @@
  * @return {number}
  */
 var rob = function(nums) {
-  let rob = 0;
-  let notRob = 0;
+  // let rob = 0;
+  // let notRob = 0;
 
-  for (let n of nums) {
-    let preMax = Math.max(rob, notRob);
-    rob = notRob + n;
+  // for (let n of nums) {
+  //   let preMax = Math.max(rob, notRob);
+  //   rob = notRob + n;
 
-    notRob = preMax;
+  //   notRob = preMax;
+  // }
+
+  // return Math.max(rob, notRob);
+
+  //another approach
+  let odd = 0;
+  let even = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
+    if (i % 2 === 0) {
+      even = Math.max(even + num, odd);
+    } else {
+      odd = Math.max(odd + num, even);
+    }
   }
 
-  return Math.max(rob, notRob);
+  return Math.max(even, odd);
 };

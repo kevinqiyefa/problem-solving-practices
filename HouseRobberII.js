@@ -22,26 +22,51 @@
  * @return {number}
  */
 var rob = function(nums) {
-  let robF = 0;
-  let notRobF = 0;
+  // let robF = 0;
+  // let notRobF = 0;
 
-  let robNotF = 0;
-  let notRobNotF = 0;
+  // let robNotF = 0;
+  // let notRobNotF = 0;
+
+  // if (nums.length === 1) return nums[0];
+
+  // for (let i = 0; i < nums.length; i++) {
+  //   let prevMaxF = Math.max(robF, notRobF);
+  //   let prevMaxNotF = Math.max(robNotF, notRobNotF);
+
+  //   robF = notRobF + nums[i];
+  //   notRobF = prevMaxF;
+
+  //   if (i) {
+  //     robNotF = notRobNotF + nums[i];
+  //     notRobNotF = prevMaxNotF;
+  //   }
+  // }
+
+  // return Math.max(notRobF, robNotF);
+
+  //second approach
+  function robHouses(nums) {
+    let odd = 0;
+    let even = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+      let num = nums[i];
+      if (i % 2 === 0) {
+        even = Math.max(even + num, odd);
+      } else {
+        odd = Math.max(odd + num, even);
+      }
+    }
+
+    return Math.max(even, odd);
+  }
 
   if (nums.length === 1) return nums[0];
 
-  for (let i = 0; i < nums.length; i++) {
-    let prevMaxF = Math.max(robF, notRobF);
-    let prevMaxNotF = Math.max(robNotF, notRobNotF);
+  const robExceptFirst = robHouses(nums.slice(1));
+  nums.pop();
+  const robExceptLast = robHouses(nums);
 
-    robF = notRobF + nums[i];
-    notRobF = prevMaxF;
-
-    if (i) {
-      robNotF = notRobNotF + nums[i];
-      notRobNotF = prevMaxNotF;
-    }
-  }
-
-  return Math.max(notRobF, robNotF);
+  return Math.max(robExceptFirst, robExceptLast);
 };
