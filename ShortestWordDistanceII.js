@@ -28,7 +28,8 @@ function WordDistance(words) {
 WordDistance.prototype.shortest = function(w1, w2) {
   let w1Idxs = this.maps[w1];
   let w2Idxs = this.maps[w2];
-  let i = (j = 0);
+  let i = 0;
+  let j = 0;
   let res = Infinity;
 
   while (i < w1Idxs.length && j < w2Idxs.length) {
