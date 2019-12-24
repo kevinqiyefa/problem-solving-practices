@@ -11,7 +11,8 @@
 // Given word1 = "makes", word2 = "makes", return 3.
 
 function wordDistance(words, w1, w2) {
-  let i1 = (i2 = -1);
+  let i1 = -1;
+  let i2 = -1;
   let res = words.length;
 
   for (let i = 0; i < words.length; i++) {
