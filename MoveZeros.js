@@ -24,18 +24,16 @@
 function moveZeroes(arr) {
   // add whatever parameters you deem necessary - good luck!
 
-  let i = 0;
-  let j = 1;
-  while (j < arr.length) {
-    if (!arr[i] && arr[j]) {
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    } else if (!arr[i] && !arr[j]) {
-      j++;
-      continue;
-    }
+  let i = 0,
+    j = 0;
 
-    i++;
+  while (j < arr.length) {
+    if (arr[j]) {
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      i++;
+    }
     j++;
   }
+
   return arr;
 }
