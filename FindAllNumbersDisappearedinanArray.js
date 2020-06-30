@@ -18,16 +18,25 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var findDisappearedNumbers = function(nums) {
-  let N = nums.length,
-    i;
+var findDisappearedNumbers = function (nums) {
+  let N = nums.length;
   let result = [];
+  // for (let i = 0; i < N; i++) {
+  //   nums[(nums[i] - 1) % N] += N;
+  // }
+
+  // for (let i = 0; i < N; i++) {
+  //   if (nums[i] <= N) result.push(i + 1);
+  // }
+
   for (let i = 0; i < N; i++) {
-    nums[(nums[i] - 1) % N] += N;
+    //flip the num to negative
+    let num = Math.abs(nums[i]) - 1;
+    if (nums[num] > 0) nums[num] = -1 * nums[num];
   }
 
   for (let i = 0; i < N; i++) {
-    if (nums[i] <= N) result.push(i + 1);
+    if (nums[i] > 0) result.push(i + 1);
   }
 
   return result;
