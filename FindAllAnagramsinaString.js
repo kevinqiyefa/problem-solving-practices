@@ -35,46 +35,75 @@
  * @param {string} p
  * @return {number[]}
  */
-var findAnagrams = function(s, p) {
-  let obj = {};
-  let pLength = p.length;
-  let ans = [];
+var findAnagrams = function (s, p) {
+  // let obj = {};
+  // let pLength = p.length;
+  // let ans = [];
 
-  let pObj = {};
+  // let pObj = {};
 
-  if (s.length < p.length) {
-    return [];
+  // if (s.length < p.length) {
+  //   return [];
+  // }
+
+  // for (let i of p) {
+  //   pObj[i] = pObj[i] + 1 || 1;
+  // }
+
+  // for (let i = 0, j = 0; i <= s.length; i++) {
+  //   if (i - j < pLength) {
+  //     obj[s[i]] = obj[s[i]] + 1 || 1;
+  //   } else {
+  //     if (isAnagrams(obj, pObj)) {
+  //       ans.push(j);
+  //     }
+
+  //     if (obj[s[j]] > 1) {
+  //       obj[s[j]]--;
+  //     } else {
+  //       delete obj[s[j]];
+  //     }
+  //     obj[s[i]] = obj[s[i]] + 1 || 1;
+  //     j++;
+  //   }
+  // }
+
+  // return ans;
+
+  let res = [];
+  let slow = 0,
+    fast = 0;
+  let hashTable = {};
+
+  if (!s || s.length < p.length) return [];
+
+  for (let c of p) {
+    hashTable[c] = hashTable[c] + 1 || 1;
   }
 
-  for (let i of p) {
-    pObj[i] = pObj[i] + 1 || 1;
-  }
+  let count = Object.keys(hashTable).length;
 
-  for (let i = 0, j = 0; i <= s.length; i++) {
-    if (i - j < pLength) {
-      obj[s[i]] = obj[s[i]] + 1 || 1;
-    } else {
-      if (isAnagrams(obj, pObj)) {
-        ans.push(j);
-      }
+  while (fast < s.length) {
+    let fastChar = s[fast++];
+    if (fastChar in hashTable) hashTable[fastChar]--;
+    if (hashTable[fastChar] === 0) count--;
 
-      if (obj[s[j]] > 1) {
-        obj[s[j]]--;
-      } else {
-        delete obj[s[j]];
-      }
-      obj[s[i]] = obj[s[i]] + 1 || 1;
-      j++;
+    if (!count) res.push(slow);
+
+    if (fast - slow === p.length) {
+      let slowChar = s[slow++];
+      if (slowChar in hashTable) hashTable[slowChar]++;
+      if (hashTable[slowChar] === 1) count++;
     }
   }
 
-  return ans;
+  return res;
 };
 
-const isAnagrams = (obj, pObj) => {
-  for (let k in pObj) {
-    if (obj[k] !== pObj[k]) return false;
-  }
+// const isAnagrams = (obj, pObj) => {
+//   for (let k in pObj) {
+//     if (obj[k] !== pObj[k]) return false;
+//   }
 
-  return true;
-};
+//   return true;
+// };
