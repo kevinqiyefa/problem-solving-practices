@@ -23,23 +23,23 @@
 // Explanation: The input is: [5,1,4,null,null,3,6]. The root node's value
 //              is 5 but its right child's value is 4.
 class Node {
-  constructor(data) {
-    this.data = data;
-    this.left = null;
-    this.right = null;
-  }
+	constructor(data) {
+		this.data = data;
+		this.left = null;
+		this.right = null;
+	}
 
-  insert(data) {
-    if (data < this.data && this.left) {
-      this.left.insert(data);
-    } else if (data < this.data) {
-      this.left = new Node(data);
-    } else if (data > this.data && this.right) {
-      this.right.insert(data);
-    } else if (data > this.data) {
-      this.right = new Node(data);
-    }
-  }
+	insert(data) {
+		if (data < this.data && this.left) {
+			this.left.insert(data);
+		} else if (data < this.data) {
+			this.left = new Node(data);
+		} else if (data > this.data && this.right) {
+			this.right.insert(data);
+		} else if (data > this.data) {
+			this.right = new Node(data);
+		}
+	}
 }
 
 /**
@@ -53,12 +53,30 @@ class Node {
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isValidBST = function(root) {
-  function helper(rt, min, max) {
-    if (!rt) return true;
-    if (min >= rt.val || max <= rt.val) return false;
-    return helper(rt.left, min, rt.val) && helper(rt.left, rt.val, max);
-  }
+var isValidBST = function (root) {
+	//       if(!rt) return true;
+	//       if(min >= rt.val ||  rt.val >= max) return false;
 
-  return helper(root, -Infinity, Infinity);
+	//       return helper(rt.left, min, rt.val) && helper(rt.right, rt.val, max)
+	//     }
+
+	//     return helper(root, -Infinity, Infinity)
+
+	let stack = [];
+	let min = -Infinity;
+
+	while (stack.length || root) {
+		while (root) {
+			stack.push(root);
+			root = root.left;
+		}
+
+		root = stack.pop();
+
+		if (root.val <= min) return false;
+		min = root.val;
+		root = root.right;
+	}
+
+	return true;
 };
