@@ -13,37 +13,30 @@
 // Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
 /**
- * Definition for an interval.
- * function Interval(start, end) {
- *     this.start = start;
- *     this.end = end;
- * }
+ * @param {number[][]} intervals
+ * @return {number[][]}
  */
-/**
- * @param {Interval[]} intervals
- * @return {Interval[]}
- */
-var merge = function(intervals) {
-  if (!intervals || intervals.length <= 0) return intervals;
+var merge = function (intervals) {
+	//corner cases:
+	if (!intervals || !intervals.length) return intervals;
 
-  intervals.sort((a, b) => a.start - b.start);
+	//sort the intervals by the first value
+	intervals.sort((a, b) => a[0] - b[0]);
 
-  let prev = intervals[0];
-  const ans = [];
+	let prev = intervals[0];
+	let res = [];
 
-  for (let i = 1; i < intervals.length; i++) {
-    let cur = intervals[i];
+	for (let i = 1; i < intervals.length; i++) {
+		let cur = intervals[i];
+		if (prev[1] >= cur[0]) {
+			prev = [prev[0], Math.max(prev[1], cur[1])];
+		} else {
+			res.push(prev);
+			prev = cur;
+		}
+	}
 
-    if (prev.end >= cur.start) {
-      //merge intervals and update prev
-      let merge = new Interval(prev.start, Math.max(prev.end, cur.end));
-      prev = merge;
-    } else {
-      ans.push(prev);
-      prev = cur;
-    }
-  }
-  ans.push(prev);
+	res.push(prev);
 
-  return ans;
+	return res;
 };
