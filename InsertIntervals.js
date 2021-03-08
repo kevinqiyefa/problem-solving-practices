@@ -15,61 +15,35 @@
 // Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 
 /**
- * Definition for an interval.
- * function Interval(start, end) {
- *     this.start = start;
- *     this.end = end;
- * }
- */
-/**
  * @param {Interval[]} intervals
  * @param {Interval} newInterval
  * @return {Interval[]}
  */
-var insert = function(intervals, newInterval) {
-  let newInt = [];
-  let i = 0;
+var insert = function (intervals, newInterval) {
+	let res = [];
 
-  if (!intervals || intervals.length <= 0) return [newInterval];
+	if (!intervals || !intervals.length) return [newInterval];
 
-  //insert the new interval and keep the order
-  while (i < intervals.length) {
-    if (intervals[i].start > newInterval.start) {
-      newInt.push(newInterval);
-    }
-    newInt.push(intervals[i]);
+	let i = 0;
+	let n = intervals.length;
+	console.log(newInterval);
 
-    if (i === intervals.length - 1 && intervals[i].start <= newInterval.start) {
-      newInt.push(newInterval);
-    }
+	while (i < n && intervals[i][1] < newInterval[0]) {
+		res.push(intervals[i]);
+		i++;
+	}
+	//overlap
+	while (i < n && intervals[i][0] <= newInterval[1]) {
+		newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
+		newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+		i++;
+	}
+	res.push(newInterval);
 
-    i++;
-  }
+	while (i < n) {
+		res.push(intervals[i]);
+		i++;
+	}
 
-  return merge(newInt);
-};
-
-var merge = function(intervals) {
-  //   if(!intervals || intervals.length<=0) return intervals;
-
-  //     intervals.sort((a,b) => a.start-b.start);
-
-  let prev = intervals[0];
-  const ans = [];
-
-  for (let i = 1; i < intervals.length; i++) {
-    let cur = intervals[i];
-
-    if (prev.end >= cur.start) {
-      //merge intervals and update prev
-      let merge = new Interval(prev.start, Math.max(prev.end, cur.end));
-      prev = merge;
-    } else {
-      ans.push(prev);
-      prev = cur;
-    }
-  }
-  ans.push(prev);
-
-  return ans;
+	return res;
 };
