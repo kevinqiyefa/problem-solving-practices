@@ -32,7 +32,7 @@ var wordPatternII = function (pattern, str) {
 		}
 
 		//if cur not in hashmap, dfs + backtracking for each sub string
-		for (let i = 1; i < s.length; i++) {
+		for (let i = 1; i <= s.length; i++) {
 			let vals = Object.values(hm);
 			let tempS = s.slice(0, i);
 			//skip if temp exits in hashmap values
