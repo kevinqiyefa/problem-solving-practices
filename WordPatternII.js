@@ -22,7 +22,7 @@ var wordPatternII = function (pattern, str) {
 
 		//check if cur char in hashmap
 		if (curChar in hm) {
-			// return false when str not starts with the exits word in hashmap
+			// return false when str not starts with the exist word in hashmap
 			if (!s.startsWith(hashMap[curChar])) return false;
 			else {
 				// if yes, then dfs the rest
