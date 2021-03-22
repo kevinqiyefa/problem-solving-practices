@@ -43,19 +43,33 @@ var wordPattern = function (pattern, s) {
 		return false;
 	}
 
+	//solution #1
+	// for (let i = 0; i < words.length; i++) {
+	// 	let w = words[i] + '*';
+	// 	let p = pattern[i] + '$';
+
+	// 	if (!(p in hashMap)) {
+	// 		hashMap[p] = i;
+	// 	}
+
+	// 	if (!(w in hashMap)) {
+	// 		hashMap[w] = i;
+	// 	}
+
+	// 	if (hashMap[w] !== hashMap[p]) return false;
+	// }
+
+	//solution #2
 	for (let i = 0; i < words.length; i++) {
-		let w = words[i] + '*';
-		let p = pattern[i] + '$';
-
-		if (!(p in hashMap)) {
-			hashMap[p] = i;
+		let w = words[i];
+		let p = pattern[i];
+		if (p in hashMap) {
+			if (w !== hashMap[p]) return false;
+		} else {
+			let vals = Object.values(hashMap);
+			if (vals.includes(w)) return false;
+			hashMap[p] = w;
 		}
-
-		if (!(w in hashMap)) {
-			hashMap[w] = i;
-		}
-
-		if (hashMap[w] !== hashMap[p]) return false;
 	}
 
 	return true;
