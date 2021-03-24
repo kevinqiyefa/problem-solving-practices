@@ -44,9 +44,9 @@ var uniquePathsWithObstacles = function (obstacleGrid) {
 		for (let j = 1; j < n; j++) {
 			if (arr[i][j] === 1) {
 				arr[i][j] = 0;
-				continue;
+			} else {
+				arr[i][j] = arr[i - 1][j] + arr[i][j - 1];
 			}
-			arr[i][j] = arr[i - 1][j] + arr[i][j - 1];
 		}
 	}
 
