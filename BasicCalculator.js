@@ -25,47 +25,107 @@
  * @param {string} s
  * @return {number}
  */
-var calculate = function (s) {
-	let operator = '+';
-	let stack = [];
-	let numStr = '';
 
-	for (let i = 0; i < s.length; i++) {
-		let char = s[i];
-		if (!isNaN(char)) {
-			numStr += char;
-		}
+var calculate = function(s) {
 
-		if (char === '(') {
-			let j = i + 1;
-			let open = 1;
-			while (open > 0) {
-				if (s[j] === '(') {
-					open++;
-				} else if (s[j] === ')') {
-					open--;
-				}
-				j++;
-			}
+    let stack = [];
+    let res = 0;
+    let sign = 1;
+    let i = 0;
 
-			numStr = calculate(s.slice(i + 1, j - 1));
-			i = j - 1;
-		}
+    while(i < s.length){
 
-		if (char === '+' || char === '-' || i === s.length - 1) {
-			if (operator === '+') {
-				stack.push(+numStr);
-			} else if (operator === '-') {
-				stack.push(-numStr);
-			}
 
-			operator = char;
-			numStr = '';
-		}
-	}
+        let cur = s[i]
 
-	return stack.reduce((total, curVal) => total + curVal, 0);
+        // ' '
+        if( cur === ' '){
+            i++;
+        // digit
+        } else if( cur >= '0' && cur <= '9'){
+            let num = '';
+            while(i < s.length &&  s[i] >= '0' && s[i] <= '9'){
+                num += s[i]
+                i++
+            }
+
+            res += sign * parseInt(num)
+
+            // + 
+        } else if(cur === '+'){
+            sign = 1
+            i++
+        
+        // -
+        } else if(cur === '-'){
+            sign = -1
+            i++;
+
+        // (
+        } else if(cur === '('){
+            stack.push(res)
+            stack.push(sign)
+
+            res = 0;
+            sign = 1
+            i++;
+        // )
+        } else if(cur === ')'){
+            let prevSign = stack.pop();
+            let prevSum = stack.pop()
+            res = prevSum + res * prevSign
+            i++;
+        } 
+        
+    }
+
+    return res
+    
 };
+
+
+
+// var calculate = function (s) {
+// 	let operator = '+';
+// 	let stack = [];
+// 	let numStr = '';
+
+// 	for (let i = 0; i < s.length; i++) {
+// 		let char = s[i];
+// 		if (!isNaN(char)) {
+// 			numStr += char;
+// 		}
+
+// 		if (char === '(') {
+// 			let j = i + 1;
+// 			let open = 1;
+// 			while (open > 0) {
+// 				if (s[j] === '(') {
+// 					open++;
+// 				} else if (s[j] === ')') {
+// 					open--;
+// 				}
+// 				j++;
+// 			}
+
+// 			numStr = calculate(s.slice(i + 1, j - 1));
+// 			i = j - 1;
+// 		}
+
+// 		if (char === '+' || char === '-' || i === s.length - 1) {
+// 			if (operator === '+') {
+// 				stack.push(+numStr);
+// 			} else if (operator === '-') {
+// 				stack.push(-numStr);
+// 			}
+
+// 			operator = char;
+// 			numStr = '';
+// 		}
+// 	}
+
+// 	return stack.reduce((total, curVal) => total + curVal, 0);
+// };
 
 // var calculate = function(s) {
 //     let currentSegment = '';
