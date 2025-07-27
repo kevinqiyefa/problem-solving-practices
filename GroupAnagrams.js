@@ -74,5 +74,5 @@ function createHash(str) {
     hash[idx]++;
   }
 
-  return hash.join('');
+  return hash.join('#');
 }

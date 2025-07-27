@@ -33,9 +33,9 @@ var topKFrequent = function(nums, k) {
   for (let key in numsCount) {
     let idx = numsCount[key];
     if (freqArr[idx]) {
-      freqArr[idx].push(key);
+      freqArr[idx].push(Number(key));
     } else {
-      freqArr[idx] = [key];
+      freqArr[idx] = [Number(key)];
     }
   }
 
