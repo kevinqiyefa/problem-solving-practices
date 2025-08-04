@@ -1,4 +1,5 @@
 // Debouncing delays execution of a function until a specified time has elapsed since its last invocation.
+// it is a technique that ensures a function only runs after a certain amount of time has passed since the last call.
 
 // Example:
 // const debouncedFunction = debounce(function() {
