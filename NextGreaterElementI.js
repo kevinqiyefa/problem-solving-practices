@@ -52,7 +52,7 @@ var nextGreaterElement = function(nums1, nums2) {
     const stack = []
     for(let i = nums2.length-1; i>=0; i--){
         let cur = nums2[i]
-        while(stack.length >0 && cur > stack[stack.length-1]){
+        while(stack.length >0 && cur >= stack[stack.length-1]){
             stack.pop()
         }
 
