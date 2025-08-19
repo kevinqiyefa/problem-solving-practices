@@ -26,32 +26,56 @@
  * @return {number}
  */
 var maxAreaOfIsland = function (grid) {
-  let max = 0;
+  //   let max = 0;
 
-  for (let row = 0; row < grid.length; row++) {
-    for (let col = 0; col < grid[row].length; col++) {
-      if (grid[row][col] === 1) {
-        max = Math.max(
-          max,
-          dfs(grid, row, col, grid.length - 1, grid[row].length - 1)
-        );
+  //   for (let row = 0; row < grid.length; row++) {
+  //     for (let col = 0; col < grid[row].length; col++) {
+  //       if (grid[row][col] === 1) {
+  //         max = Math.max(
+  //           max,
+  //           dfs(grid, row, col, grid.length - 1, grid[row].length - 1)
+  //         );
+  //       }
+  //     }
+  //   }
+
+  //   return max;
+  // };
+
+  // function dfs(grid, i, j, n, m) {
+  //   if (grid[i][j] === 0) return 0;
+
+  //   grid[i][j] = 0;
+
+  //   let val = 1;
+  //   if (i > 0) val += dfs(grid, i - 1, j, n, m);
+  //   if (i < n) val += dfs(grid, i + 1, j, n, m);
+  //   if (j > 0) val += dfs(grid, i, j - 1, n, m);
+  //   if (j < m) val += dfs(grid, i, j + 1, n, m);
+
+  //   return val;
+
+  let maxArea = 0;
+  let rows = grid.length;
+  let cols = grid[0].length;
+
+  const dfs = (i, j) => {
+    if (i < 0 || j < 0 || i >= rows || j >= cols || grid[i][j] === 0) {
+      return 0;
+    }
+    grid[i][j] = 0;
+
+    return 1 + dfs(i + 1, j) + dfs(i - 1, j) + dfs(i, j + 1) + dfs(i, j - 1);
+  };
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (grid[i][j] === 1) {
+        let area = dfs(i, j);
+        maxArea = Math.max(maxArea, area);
       }
     }
   }
 
-  return max;
+  return maxArea;
 };
-
-function dfs(grid, i, j, n, m) {
-  if (grid[i][j] === 0) return 0;
-
-  grid[i][j] = 0;
-
-  let val = 1;
-  if (i > 0) val += dfs(grid, i - 1, j, n, m);
-  if (i < n) val += dfs(grid, i + 1, j, n, m);
-  if (j > 0) val += dfs(grid, i, j - 1, n, m);
-  if (j < m) val += dfs(grid, i, j + 1, n, m);
-
-  return val;
-}
