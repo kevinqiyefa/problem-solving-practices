@@ -18,7 +18,7 @@
  * @return {U}
  */
 Array.prototype.myReduce = function (callbackFn, initialValue) {
-    if(!callbackFn) throw new TypeError(callbackFn + "is not a function")
+    if(typeof callbackFn ==='function') throw new TypeError(callbackFn + "is not a function")
   
     const arr = this;
     let accumulator;
@@ -40,7 +40,7 @@ Array.prototype.myReduce = function (callbackFn, initialValue) {
         accumulator = callbackFn(accumulator, arr[i], i, arr)
       }
     }
-  
+
     return accumulator
   
   
